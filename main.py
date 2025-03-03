@@ -14,7 +14,7 @@ if files:
     for file in files:
         ext = file.name.split(".")[-1]  # Get file extension
         try:
-            df = pd.read_csv(file) if ext == "csv" else pd.read_excel(file, engine='openpyxl')
+            df = pd.read_csv(file) if ext == "csv" else pd.read_excel("file.xlsx", engine='openpyxl')
         except ImportError:
             st.error("Please install the 'openpyxl' package to read Excel files.")
             st.stop()
