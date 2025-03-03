@@ -13,7 +13,11 @@ files = st.file_uploader("Upload your files (CSV or Excel):", type=["csv", "xlsx
 if files:
     for file in files:
         ext = file.name.split(".")[-1]  # Get file extension
-        df = pd.read_csv(file) if ext == "csv" else pd.read_excel(file)
+        try:
+            df = pd.read_csv(file) if ext == "csv" else pd.read_excel(file, engine='openpyxl')
+        except ImportError:
+            st.error("Please install the 'openpyxl' package to read Excel files.")
+            st.stop()
 
         # Display info about the file
         st.subheader(f"{file.name} - Preview")
