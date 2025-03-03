@@ -18,7 +18,6 @@ if files:
         except ImportError:
             st.error("Please install the 'openpyxl' package to read Excel files.")
             st.stop()
-
         # Display info about the file
         st.subheader(f"{file.name} - Preview")
         st.dataframe(df.head())
