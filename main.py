@@ -14,10 +14,18 @@ if files:
     for file in files:
         ext = file.name.split(".")[-1]  # Get file extension
         try:
-            df = pd.read_csv(file) if ext == "csv" else pd.read_excel("file.xlsx", engine='openpyxl')
+            # Read the file based on its extension
+            if ext == "csv":
+                df = pd.read_csv(file)
+            else:
+                df = pd.read_excel(file, engine='openpyxl')
         except ImportError:
             st.error("Please install the 'openpyxl' package to read Excel files.")
             st.stop()
+        except Exception as e:
+            st.error(f"An error occurred while reading the file: {e}")
+            st.stop()
+
         # Display info about the file
         st.subheader(f"{file.name} - Preview")
         st.dataframe(df.head())
